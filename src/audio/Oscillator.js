@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
-import SynthKey from '../ui/SynthKey.js'
+// import SynthKey from '../ui/SynthKey.js'
+import '../ui/SynthKey.scss'
+
 
 class Oscillator extends Component {
   constructor(props) {
     super(props)
     this.state = {}
-
-    // Get audio context upon instantiation
-    this.context = new (window.AudioContext || window.webkitAudioContext)()
   }
 
   init = () => {
+    // Get audio context upon instantiation
+    this.context = new (window.AudioContext || window.webkitAudioContext)()
     // define oscillator node
-    this.oscillator = this.context.createOscillator
+    this.oscillator = this.context.createOscillator()
     // waveform type
     // should accept props.wave from user input
     this.oscillator.type = 'sine'
@@ -21,8 +22,8 @@ class Oscillator extends Component {
     this.gainNode = this.context.createGain()
     // chain gain node to oscillator
     this.oscillator.connect(this.gainNode)
-
-
+    // route output
+    this.gainNode.connect(this.context.destination)
   }
 
   play = () => {
@@ -40,15 +41,17 @@ class Oscillator extends Component {
 
   }
 
-  stop = time => {
+  stop = () => {
     // attenuate gain to 0 and stop oscillator on keyUp with passed time value
+    const time = this.context.currentTime
     this.gainNode.gain.setValueAtTime(0, time)
     this.oscillator.stop(time)
   }
 
+
   render () {
     return (
-      <SynthKey />
+      <div className={'synth-key'} onMouseDown={this.play} onMouseUp={this.stop}></div>
     )
   }
 }

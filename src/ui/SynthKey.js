@@ -1,19 +1,10 @@
 import React, { Component } from 'react'
-import Oscillator from '../audio/Oscillator.js'
-
+import './SynthKey.scss'
 
 class SynthKey extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {}
-  }
-
   render () {
     return (
-      <div>
-        <Oscillator />
-      </div>
+      <div className={'synth-key'}></div>
     )
   }
 }
