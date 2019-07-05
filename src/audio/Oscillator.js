@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import SynthKey from '../ui/SynthKey.js'
+import SynthKey from '../ui/SynthKey.js'
 import '../ui/SynthKey.scss'
 
 
@@ -51,7 +51,7 @@ class Oscillator extends Component {
 
   render () {
     return (
-      <div className={'synth-key'} onMouseDown={this.play} onMouseUp={this.stop}></div>
+      <SynthKey play={this.play} stop={this.stop}/>
     )
   }
 }
